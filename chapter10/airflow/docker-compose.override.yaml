@@ -1,0 +1,20 @@
+# these are overrides to the default docker compose
+x-airflow-common:
+  &airflow-common
+  environment:
+    &airflow-common-env
+    AIRFLOW CORE LOAD_EXAMPLES: 'false'
+
+services:
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    environment:
+      <<: *airflow-common-env
+      AIRFLOW WEBSERVER ENABLE_PROXY_FIX: 'True'
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    environment:
+      <<: *airflow-common-env
+      AIRFLOW SCHEDULER MIN_FILE_PROCESS_INTERVAL: '30'
